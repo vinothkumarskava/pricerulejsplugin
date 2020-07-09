@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>bpmn-js-example-model-extension</title>
+
+  <link rel="stylesheet" href="vendor/bpmn-js/assets/diagram-js.css" />
+  <link rel="stylesheet" href="vendor/bpmn-js/assets/bpmn-font/css/bpmn-embedded.css" />
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+<body>
+  <div class="content" id="js-drop-zone">
+
+    <div class="message intro">
+      <div class="note">
+        Drop BPMN diagram from your desktop or <a id="js-create-diagram" href>create a new diagram</a> to get started.
+      </div>
+    </div>
+
+    <div class="message error">
+      <div class="note">
+        <p>Ooops, we could not display the BPMN 2.0 diagram.</p>
+
+        <div class="details">
+          <span>cause of the problem</span>
+          <pre></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="canvas" id="js-canvas"></div>
+    <div class="properties-panel-parent" id="js-properties-panel"></div>
+    <ul class="buttons">
+      <li>
+        download
+      </li>
+      <li>
+        <a id="js-download-diagram" href title="download BPMN diagram">
+          BPMN diagram
+        </a>
+      </li>
+      <li>
+        <a id="js-download-svg" href title="download as SVG image">
+          SVG image
+        </a>
+      </li>
+    </ul>
+  </div>
+  <script src="app.js"></script>
+  <script>
+    var configURL = "https://api.jsonbin.io/b/5f04b891a62f9b4b2760a6e4";
+    var priceListURL = "https://api.jsonbin.io/b/5f04b8525d4af74b012825d5";
+
+    var ajaxResult=[], isLocal = true;
+
+    var xml = '<?xml version="1.0" encoding="UTF-8"?>' +
+        '<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" id="_RdgBELNaEeSYkoSLDs6j-w" targetNamespace="http://activiti.org/bpmn">' +
+        '<bpmn2:process id="Process_1" />' +
+        '<bpmndi:BPMNDiagram id="BPMNDiagram_1">' +
+        '<bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1" />' +
+        '</bpmndi:BPMNDiagram>' +
+        '</bpmn2:definitions>';
+
+    var savePriceRuleCbk = function(err, xml){
+      console.log(xml);
+    };
+
+    if(isLocal) {
+      ajaxResult.push({ "input_fields": [{ "id": "shopping_flow", "name": "Shopping Flow", "options": ["upgrade", "equipment", "none"] }, { "id": "user_tier", "name": "User Tier", "options": ["Silver", "Gold", "Platinum"] }, { "id": "category", "name": "Category", "options": null }] });
+      ajaxResult.push({ "priceLists": [{ "createdBy": 1, "updatedBy": 1, "createdOn": "2020-06-20T20:05:02+05:30", "updatedOn": "2020-06-20T20:05:02+05:30", "id": 16, "collectionId": 16, "name": "SFO Pricelist", "description": "SFO Pricelist", "status": "ACTIVE", "tierPrice": "ENABLE", "schedulePrice": "ENABLE", "subscription": "ENABLE", "floorPrice": "ENABLE", "currencySign": "USD", "skuCount": 1301 }, { "createdBy": 10, "updatedBy": 10, "createdOn": "2020-06-20T20:05:45+05:30", "updatedOn": "2020-06-20T20:05:45+05:30", "id": 33000, "collectionId": 16, "name": "priceList33k", "description": "priceList33k description", "status": "ACTIVE", "tierPrice": "ENABLE", "schedulePrice": "ENABLE", "subscription": "ENABLE", "floorPrice": "ENABLE", "currencySign": "INR", "skuCount": 65 }, { "createdBy": 10, "updatedBy": 10, "createdOn": "2020-06-20T20:05:45+05:30", "updatedOn": "2020-06-20T20:05:45+05:30", "id": 34000, "collectionId": 16, "name": "priceList34k", "description": "priceList34k description", "status": "ACTIVE", "tierPrice": "ENABLE", "schedulePrice": "ENABLE", "subscription": "ENABLE", "floorPrice": "ENABLE", "currencySign": "INR", "skuCount": 67 }, { "createdBy": 10, "updatedBy": 10, "createdOn": "2020-06-20T20:05:45+05:30", "updatedOn": "2020-06-20T20:05:45+05:30", "id": 34002, "collectionId": 16, "name": "priceList55k", "description": "priceList5k description", "status": "ACTIVE", "tierPrice": "ENABLE", "schedulePrice": "ENABLE", "subscription": "ENABLE", "floorPrice": "ENABLE", "currencySign": "INR", "skuCount": 67 }, { "createdBy": 10, "updatedBy": 10, "createdOn": "2020-06-20T20:05:45+05:30", "updatedOn": "2020-06-20T20:05:45+05:30", "id": 34008, "collectionId": 16, "name": "priceList88k", "description": "priceList88k description", "status": "ACTIVE", "tierPrice": "ENABLE", "schedulePrice": "ENABLE", "subscription": "ENABLE", "floorPrice": "ENABLE", "currencySign": "INR", "skuCount": 67 }], "pageableInfo": { "page": 1, "size": 10, "count": 5, "totalCount": 5 } });
+      init(ajaxResult);
+    } else {
+      Promise.all([
+        fetch(configURL),
+        fetch(priceListURL)
+      ]).then(function (responses) {
+        // Get a JSON object from each of the responses
+        return Promise.all(responses.map(function (response) {
+          return response.json();
+        }));
+      }).then(function (data) {
+        ajaxResult.push(data[0]);
+        ajaxResult.push(data[1]);
+        init(ajaxResult, xml, savePriceRuleCbk);
+        // For viewer call the below method
+        // openViewerDiagram(xml);
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
+  </script>
+  
+</html>

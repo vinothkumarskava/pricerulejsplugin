@@ -1,0 +1,89 @@
+{
+  "FETCH_PRICE_DATA": [
+    {
+      "itemSubjectRef": "ItemDefinition_1493",
+      "name": "collectionId"
+    },
+    {
+      "itemSubjectRef": "ItemDefinition_2306",
+      "name": "skuId"
+    },
+    {
+      "itemSubjectRef": "ItemDefinition_1493",
+      "name": "priceListId",
+      "isAssignment": true
+    },
+    {
+      "itemSubjectRef": "ItemDefinition_1132",
+      "name": "projectRepository"
+    },
+    {
+      "itemSubjectRef": "ItemDefinition_460",
+      "name": "priceFacetRepository"
+    },
+    {
+      "itemSubjectRef": "ItemDefinition_41",
+      "name": "priceRepository"
+    },
+    {
+      "itemSubjectRef": "ItemDefinition_647",
+      "name": "priceValueProcess"
+    },
+    {
+      "itemSubjectRef": "ItemDefinition_257",
+      "name": "priceValueRepository"
+    },
+    {
+      "itemSubjectRef": "ItemDefinition_813",
+      "name": "commonProcess"
+    },
+    {
+      "itemSubjectRef": "ItemDefinition_1493",
+      "name": "projectId"
+    },
+    {
+      "itemSubjectRef": "ItemDefinition_96",
+      "name": "priceListRepository"
+    },
+    {
+      "itemSubjectRef": "ItemDefinition_7288",
+      "name": "quantity"
+    },
+    {
+      "itemSubjectRef": "ItemDefinition_536",
+      "name": "fetchPrice",
+      "dataOutPut": true
+    }
+  ],
+  "PROCESS_PRICE_DATA": [
+    {
+      "itemSubjectRef": "ItemDefinition_2306",
+      "name": "priceAdjustment",
+      "isAssignment": true
+    },
+    {
+      "itemSubjectRef": "ItemDefinition_7288",
+      "name": "roundingPattern",
+      "isAssignment": true
+    },
+    {
+      "itemSubjectRef": "ItemDefinition_7288",
+      "name": "percentage",
+      "isAssignment": true
+    },
+    {
+      "itemSubjectRef": "ItemDefinition_536",
+      "name": "fetchPrice"
+    },
+    {
+      "itemSubjectRef": "ItemDefinition_2306",
+      "name": "roundOff",
+      "isAssignment": true
+    },
+    {
+      "itemSubjectRef": "ItemDefinition_536",
+      "name": "processPrice",
+      "dataOutPut": true
+    }
+  ]
+}

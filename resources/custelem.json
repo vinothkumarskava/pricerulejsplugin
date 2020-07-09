@@ -1,0 +1,55 @@
+{
+  "name": "CustomElements",
+  "uri": "http://some-company/schema/bpmn/customelements",
+  "prefix": "custele",
+  "xml": {
+    "tagAlias": "lowerCase"
+  },
+  "types": [
+    {
+      "name": "TaskNode",
+      "extends": [
+        "bpmn:Task"
+      ],
+      "properties": [
+        {
+          "name": "customElementName",
+          "isAttr": false,
+          "type": "String"
+        },
+        {
+          "name": "pricelist",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "priceId",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "ppAdjustmentOperation",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "ppAdjustmentValue",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "ppRoundoffOperation",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "ppRoundoffValue",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    }
+  ],
+  "emumerations": [],
+  "associations": []
+}
